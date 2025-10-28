@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="fc.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
+  <title>Fake cht by zkky</title>
+  <style>
+    *, *::before, *::after{
+  box-sizing: border-box;
+}
+html, body{
+  height: 100%;
+}
+body{
+  background: linear-gradient(135deg, #044f48, #2a7561);
+  background-size: cover;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  line-height: 1.3;
+  overflow: hidden;
+}
+.bg{
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: url("bor.jpg") no-repeat 0 0;
+  transform: scale(1.2);
+  filter: blur(80px);
+}
+.chat{
+  width: 300px;
+  height: 80vh;
+  max-height: 500px;
+  z-index: 2;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+}
+.chat-title{
+  background: rgba(0, 0, 0, 0.2);
+  padding: 10px 10px 10px 50px;
+  color: #fff;
+  flex: 0 1 45px;
+  position: relative;
+  z-index: 2;
+  text-align: left;
+  text-transform: uppercase;
+}
+.chat-title h1, .chat-title h2{
+  font-weight: normal;
+  font-size: 10px;
+  margin: 0;
+  padding: 0;
+}
+.chat-title h2{
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+.chat-title .avatar{
+  position: absolute;
+  top: 8px;
+  left: 9px;
+  width: 30px;
+  height: 30px;
+  z-index: 1;
+  border-radius: 30px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  border: 2px solid rgba(255, 255, 255, 0.24);
+  }
+  .chat-title .avatar img{
+    width: 100%;
+    height: auto;
+  }
+  .msgs{
+    flex: 1 1 auto;
+    color: rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+  .msg-box{
+    flex: 0 1 40px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    position: relative;
+  }
+  .msg-box .msg-input{
+    background: none;
+    border: none;
+    outline: none !important;
+    resize: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+    height: 17px;
+    margin: 0;
+    padding-right: 20px;
+    width: 265px;
+  }
+  .msg-box textarea:focus:-webkit-placeholder{
+    color: transparent;
+  }
+  .msg-box .msg-submit{
+    position: absolute;
+    z-index: 1;
+    top: 9px;
+    right: 10px;
+    border: none;
+    color: #fff;
+    background: black;
+    font-size: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    line-height: 1;
+    padding: 6px 10px;
+    outline: none !important;
+    transition: background 0.2s ease;
+  }
+  .msg-box .msg-submit:hover{
+    background: #1d7745;
+  }
+  .msgs .msgs-content{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 101%;
+    width: 100%;
+  }
+  .msgs .msg{
+    clear: both;
+    float: left;
+    padding: 6px 10px 7px;
+    border-radius: 10px 10px 10px 0;
+    background: rgba(0, 0, 0, 0.3);
+    margin: 8px 0px;
+    font-size: 11px;
+    line-height: 1.4;
+    margin-left: 35px;
+    position: relative;
+   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  }
+  .msgs .msg .timestamp{
+    position: absolute;
+    bottom: -15px;
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.3);
+   }
+   .msgs .msg:before{
+     content: "";
+     position: absolute;
+     bottom: -6px;
+     border-top: 6px solid rgba(0, 0, 0, 0.3);
+     left: 0;
+     border-right: 7px solid transparent;
+   }
+   .msgs .msg .avatar{
+     position: absolute;
+     z-index: 1;
+     bottom: -15px;
+     left: -35px;
+     border-radius: 30px;
+     width: 30px;
+     height: 30px;
+     overflow: hidden;
+     margin: 0;
+     padding: 0;
+     border: 2px solid rgba(255,255,255,0.24);
+   }
+   .msgs .msg .avatar img{
+     width: 100%;
+     height: auto;
+   }
+   .msgs .msg.msg-personal{
+     float: right;
+     color: #fff;
+     text-align: right;
+     background: linear-gradient(120deg, #248a24, #257287);
+     border-radius: 10px 10px 0 10px;
+   }
+   .msgs .msg .msg-personal::before{
+     left: auto;
+     right: 0;
+     border-right: none;
+     border-left: 5px solid transparent;
+     border-top: 4px solid #257287;
+     bottom: -4px;
+   }
+   .msgs .msg:last-child{
+     margin-bottom: 30px;
+   }
+   .msgs .msg.new{
+     transform: scale(0);
+     transform-origin: 0 0;
+     animation: bounce 500ms linear both;
+   }
+   .msgs .msg.loading::before{
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     content: "";
+     display: block;
+     width: 3px;
+     height: 3px;
+     border-radius: 50%;
+     background: rgba(255,255,255,0.5);
+     z-index: 2;
+     margin-top: 4px;
+     animation: ball 0.45s cubic-bezier(0,0,0.15,1) alternate infinite;
+     border: none;
+   }
+   .msgs .msg.loading span{
+     display: block;
+     font-size: 0;
+     width: 20px;
+     height: 10px;
+     position: relative;
+   }
+   .msgs .msg.loading span::before{
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50, 50%);
+     content: "";
+     display: block;
+     width: 3px;
+     height: 3px;
+     border-radius: 50%;
+     background: rgba(255,255,255,0.5);
+     margin-top: 4px;
+     margin-left: -7px;
+     animation: ball 0.45s cubic-bezier(0,0,0.15, 1) alternate infinite;
+   }
+   .msgs .msg.loading span:after{
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     content: "";
+     display: block;
+     width: 3px;
+     height: 3px;
+     border-radius: 50%;
+     background: rgba(255,255,255,0.5);
+     z-index: 2;
+     margin-top: 4px;
+     margin-left: 7px;
+     animation: ball 0.45s cubic-bezier(0,0,0.15, 1) alternate infinite;
+     -webkit-animation: ball 0.45s cubic-bezier(0,0,0.15, 1) alternate infinite;
+     animation-delay: 0.3s;
+     -webkit-animation-delay: 0.3s;
+   }
+   .mCSB_scrollTools{
+     margin: 1px -3px 1px 0;
+     opacity: 0;
+   }
+   .mCSB_inside > .mCSB_container{
+     margin-right: 0;
+     padding: 0 10px;
+   }
+   .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+     background-color: rgba(0,0,0,0.5) !important;
+    }
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+@-webkit-keyframes ball {
+  from {
+    transform: translateY(0) scaleY(0.8);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+@keyframes ball {
+  from {
+    transform: translateY(0) scaleY(0.8);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+  </style>
+
+</head>
+<body>
+  <div class="chat">
+    <div class="chat-title">
+      <h1>zakky</h1>
+      <h2>online</h2>
+      <figure class="avatar">
+        <img src="pp.jpg"/>
+      </figure>
+    </div>
+    <div class="msgs">
+      <div class="msgs-content"></div>
+    </div>
+    <div class="msg-box">
+      <textarea class="msg-input" placeholder="ketik sesuatu"></textarea>
+      <button type="submit" class="msg-submit">Kirim</button>
+    </div>
+  </div>
+  
+  <div class="bg">
+    
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js"></script>
+  <script src="fc.js"></script>
+</body>
+  
+</html>
+<script>
+  const messagesContent = $('.msgs-content');
+const messageInput = $('.msg-input');
+const messageSubmit = $('.msg-submit');
+const avatarImage = 'pp.jpg';
+const fakeMessages = [
+  'p',
+  'zakky',
+  'bole kenalan ga?',
+  'oya salken ya',
+  'nm lu sp kl bole tau',
+  'btw lu tinggal dmn',
+  'oh gw jg sby haha',
+  'daerah mana?',
+  'wah deket ternyata',
+  'bisa kali ngajak lu keluar wkw',
+  'suka ngegame ga?',
+  'sama gw jg suka hh',
+  'game yg sering lu mainin ap',
+  'gw jg maen epep, mabar ga?',
+  'knp gamau?'
+];
+let minutes = 0;
+$(window).on('load', function() {
+  messagesContent.mCustomScrollbar();
+  setTimeout(fakeMessage, 100);
+});
+function updateScrollbar(){
+  messagesContent.mCustomScrollbar('update').mCustomScrollbar('scrollTo', 'bottom', {
+    scrollInertia: 10,
+    timeout: 0
+  });
+};
+function addTimestamp(){
+  const date = new Date();
+  const minutesNow = date.getMinutes();
+ 
+  if(minutes !== minutesNow){
+    minutes = minutesNow;
+    const timeStamp = $('<div class="timestamp"></div>').
+    text(`${date.getHours()}:${minutes}`);
+    $('.msg:last').append(timeStamp);
+  };
+};
+function addMessageToPage(msg, isPersonal = false){
+  const message = $('<div class="msg"></div>').text(msg);
+  if(isPersonal){
+    message.addClass('msg-personal');
+    } else {
+      const figure = $('<figure class="avatar"></figure>');
+      const image = $('<img>').attr('src', avatarImage);
+      figure.append(image);
+      message.addClass('new').prepend(figure);
+  };
+  $('.mCSB_container').append(message);
+  addTimestamp();
+  updateScrollbar();
+};
+
+function insertMessage(){
+  const messageText = messageInput.val().trim();
+  if (messageText === '') {
+    return false;
+  };
+  addMessageToPage(messageText, true);
+  messageInput.val(null);
+  setTimeout(fakeMessage, 1000 + (Math.random() * 20) * 100);
+};
+messageInput.on('keydown', function(e){
+  if(e.which === 13){
+    insertMessage();
+    return false;
+  };
+});
+messageSubmit.on('click', insertMessage);
+function fakeMessage(){
+  if(messageInput.val() !== ''){
+    return false; 
+  };
+  const loadingMessage = $('<div class="msg loading new"></div>');
+  const figure = $('<figure class="avatar"></figure>');
+  const image = $('<img>').attr('src', avatarImage);
+  figure.append(image);
+  loadingMessage.append(figure).append($('<span></span>'));
+  $('.mCSB_container').append(loadingMessage);
+  updateScrollbar();
+  
+  setTimeout(function() {
+    loadingMessage.remove();
+    if (fakeMessages.length > 0) { // Tambahkan pengecekan ini
+      addMessageToPage(fakeMessages.shift());
+    }
+    }, 1000 + (Math.random() * 20) * 100);
+}
+
+</script>
